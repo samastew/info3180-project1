@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+    <h2 class="mb-4">🏠 Properties Available</h2>
+    
+    {% if properties %}
+    <div class="row">
+        {% for property in properties %}
+        <div class="col-md-4 col-sm-6 col-12 mb-4">
+            <div class="card property-card h-100">
+                {% if property.photo %}
+                <img src="{{ url_for('get_image', filename=property.photo) }}" 
+                     class="card-img-top" 
+                     alt="{{ property.title }}">
+                {% else %}
+                <div class="bg-secondary d-flex align-items-center justify-content-center no-image">
+                    <span class="text-white">No Image</span>
+                </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.title }}</h5>
+                    <p class="card-text text-muted">📍 {{ property.location }}</p>
+                    <div class="price-badge">
+                        ${{ "{:,.2f}".format(property.price) }}
+                    </div>
+                    <a href="{{ url_for('view_property', propertyid=property.id) }}" 
+                       class="btn btn-primary w-100 mt-3">View Property →</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        No properties available yet. <a href="{{ url_for('add_property') }}">Add your first property</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

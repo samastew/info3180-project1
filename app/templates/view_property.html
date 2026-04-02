@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    {% if property.photo %}
+                    <img src="{{ url_for('get_image', filename=property.photo) }}" 
+                         class="property-image" 
+                         alt="{{ property.title }}">
+                    {% else %}
+                    <div class="bg-secondary rounded d-flex align-items-center justify-content-center property-image">
+                        <span class="text-white">No Image Available</span>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <h2>{{ property.title }}</h2>
+                    
+                    <div class="feature-box">
+                        🛏️ {{ property.rooms }} Bedrooms
+                    </div>
+                    <div class="feature-box">
+                        🚿 {{ property.bathrooms }} Bathrooms
+                    </div>
+                    
+                    <div class="feature-box">
+                        🏠 {{ property.property_type }}
+                    </div>
+                    
+                    <div class="mt-3">
+                        <strong>📍 Location:</strong> {{ property.location }}
+                    </div>
+                    
+                    <div class="mt-2">
+                        <strong>💰 Price:</strong>
+                        <h3 class="text-primary d-inline-block">${{ "{:,.2f}".format(property.price) }}</h3>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <strong>📝 Description:</strong>
+                        <p class="mt-2">{{ property.description }}</p>
+                    </div>
+                    
+                    <div class="button-group mt-4">
+                        <button class="btn btn-primary" onclick="alert('Email functionality would be implemented here')">
+                            📧 Email Realtor
+                        </button>
+                        <a href="{{ url_for('display_properties') }}" class="btn btn-secondary">
+                            ← Back to Properties
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
